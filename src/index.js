@@ -2,19 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class Square extends React.Component {
-    render() {
+/* Change Square to be a Function Component */
+function Square(props) {
+
       return (
-        <button className="square"
-        /* If we forgot arrow function, then it would trigger every time component rerenders*/
-        onClick={() => this.props.onClick()}
-        >
+        <button className="square" onClick={() => this.props.onClick()}>
         
-          {this.props.value /* adding a props 
-        accepts a parameter called value */}
+          {this.props.value }
         </button>
       );
-    }
+    
   }
   
   class Board extends React.Component {
