@@ -25,7 +25,13 @@ function Square(props) {
         };
     }
     handleClick(i) {
+        /* Create a copy of our squares array to make it immutable */ 
         const squares = this.state.squares.slice();
+
+        /* If someone has won or if that square is already selected, do nothing when Square is clicked*/
+        if (calculateWinner(squares) || squares[i]) {
+            return;
+        }
         squares[i] = this.state.xIsNext ? 'X' : 'O';
         this.setState({squares: squares,
             xIsNext: !this.state.xIsNext
