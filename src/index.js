@@ -3,14 +3,24 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class Square extends React.Component {
+    constructor (props) {
+        /* In JavaScript classes, you always need to call super when defining constructor*/
+        super(props);
+        /* Define a private state within each Square class */
+        this.state = {
+            value: null,
+        };
+    }
     render() {
       return (
         <button className="square"
-        onClick={function() {
-            alert('click');
+        /* If we forgot arrow function, then it would trigger every time component rerenders*/
+        onClick={() => {
+            /* React will rerender that Square whenever onClick*/
+            this.setState({value: 'X'})
         }}>
         
-          {this.props.value /* adding a props 
+          {this.state.value /* adding a props 
         accepts a parameter called value */}
         </button>
       );
