@@ -3,24 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class Square extends React.Component {
-    constructor (props) {
-        /* In JavaScript classes, you always need to call super when defining constructor*/
-        super(props);
-        /* Define a private state within each Square class */
-        this.state = {
-            value: null,
-        };
-    }
     render() {
       return (
         <button className="square"
         /* If we forgot arrow function, then it would trigger every time component rerenders*/
-        onClick={() => {
-            /* React will rerender that Square whenever onClick*/
-            this.setState({value: 'X'})
-        }}>
+        onClick={() => this.props.onClick()}
+        >
         
-          {this.state.value /* adding a props 
+          {this.props.value /* adding a props 
         accepts a parameter called value */}
         </button>
       );
@@ -28,8 +18,24 @@ class Square extends React.Component {
   }
   
   class Board extends React.Component {
+
+    /* Lifting State into Parent instead of Child */
+    constructor(props) {
+        super(props);
+        this.state = {
+            squares: Array(9).fill(null),
+        };
+    }
+    handleClick(i) {
+        const squares = this.state.squares.slice();
+        squares[i] = 'X';
+        this.setState({squares: squares})
+    }
     renderSquare(i) {
-      return <Square value={i}/>;
+      return <Square value={this.state.squares[i]}
+      /* Pass in onClick function into Square */
+      onClick={() => this.handleClick(i)}
+      />;
     }
   
     render() {
